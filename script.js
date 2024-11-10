@@ -3,7 +3,8 @@ let balance = 0.000;  // Balance inicial
 let miningTime = 4 * 60 * 60;  // 4 horas en segundos
 
 // Elementos de la página
-const startButton = document.getElementById("start-btn");
+const startButton = document.getElementById("start-btn"); // Botón Start en bienvenida
+const startMiningButton = document.getElementById("start-mining-btn"); // Botón Start Mining en minería
 const claimButton = document.getElementById("claim-btn");
 const timerDisplay = document.getElementById("timer");
 const balanceDisplay = document.getElementById("balance");
@@ -17,7 +18,12 @@ const walletButton = document.getElementById("wallet-btn");
 startButton.addEventListener("click", function() {
     welcomeContainer.style.display = "none"; // Ocultar la página de bienvenida
     miningContainer.style.display = "block"; // Mostrar la página de minería
-    startMining(); // Comienza la minería
+});
+
+// Función para manejar la minería y la cuenta regresiva
+startMiningButton.addEventListener("click", function() {
+    startMining(); // Iniciar minería cuando se presione "Start Mining"
+    startMiningButton.style.display = "none"; // Ocultar el botón Start Mining una vez iniciado
 });
 
 // Función para manejar la minería y la cuenta regresiva
