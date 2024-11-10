@@ -7,15 +7,14 @@ const startButton = document.getElementById("start-btn");
 const claimButton = document.getElementById("claim-btn");
 const timerDisplay = document.getElementById("timer");
 const balanceDisplay = document.getElementById("balance");
-const miningContainer = document.getElementById("mining-container");
-const balanceContainer = document.getElementById("balance-container");
+const welcomeContainer = document.getElementById("welcome-container");
+const mainContainer = document.getElementById("main-container");
 
 // Mostrar el contador de minería
 startButton.addEventListener("click", function() {
-    startButton.style.display = "none"; // Ocultar el botón de start
-    miningContainer.style.display = "block"; // Mostrar la minería
-    balanceContainer.style.display = "block"; // Mostrar el balance
-    startMining(); // Comienza la minería
+    welcomeContainer.style.display = "none"; // Ocultar la página de bienvenida
+    mainContainer.style.display = "block"; // Mostrar la página de minería
+    startMining(); // Iniciar la minería
 });
 
 // Función para manejar la minería y la cuenta regresiva
@@ -36,7 +35,7 @@ function startMining() {
 
         // Actualizar el balance por segundo
         balance += 0.002; // 0.002 CG por segundo
-        balanceDisplay.textContent = balance.toFixed(3) + " CG";
+        balanceDisplay.textContent = "Balance: " + balance.toFixed(3) + " CG";
 
         // Reducir el tiempo del contador
         if (--timer < 0) {
@@ -49,7 +48,7 @@ function startMining() {
 // Función para reclamar las ganancias
 claimButton.addEventListener("click", function() {
     balance += 0.000; // Aquí puedes agregar lo que desees que ocurra cuando "Claim" se presione, como transferir el balance al "wallet"
-    balanceDisplay.textContent = balance.toFixed(3) + " CG"; // Actualizar el balance
-    startButton.style.display = "block"; // Volver a mostrar el botón "Start"
-    miningContainer.style.display = "none"; // Ocultar la minería
+    balanceDisplay.textContent = "Balance: " + balance.toFixed(3) + " CG"; // Actualizar el balance
+    welcomeContainer.style.display = "block"; // Volver a mostrar la página de bienvenida
+    mainContainer.style.display = "none"; // Ocultar la minería
 });
