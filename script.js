@@ -1,85 +1,55 @@
-// Referencias a los elementos del DOM
-const startBtn = document.getElementById('startBtn'); // Botón de inicio en la página principal
-const miningPage = document.getElementById('miningPage'); // Página de minería
-const welcomePage = document.getElementById('welcome'); // Página de bienvenida
-const timerDisplay = document.getElementById('timer'); // Mostrará el tiempo restante
-const balanceDisplay = document.getElementById('balance'); // Muestra el balance principal
-const minedAmountDisplay = document.getElementById('minedAmount'); // Muestra la cantidad de minería por segundo
-const miningBtn = document.getElementById('miningBtn'); // Botón de "Start Mining" o "Claim"
-const backBtnMining = document.getElementById('backBtnMining'); // Botón para volver a la página principal
+// Variables para el balance y el tiempo
+let balance = 0.000;  // Balance inicial
+let miningTime = 4 * 60 * 60;  // 4 horas en segundos
 
-// Variables globales
-let miningStarted = false; // Indica si la minería está en proceso
-let timerInterval; // Intervalo del temporizador
-let miningAmount = 0; // Monto acumulado de minería
-let mainBalance = 0; // Balance principal
-let secondsLeft = 14400; // 4 horas en segundos (14400)
+// Elementos de la página
+const startButton = document.getElementById("start-btn");
+const claimButton = document.getElementById("claim-btn");
+const timerDisplay = document.getElementById("timer");
+const balanceDisplay = document.getElementById("balance");
+const miningContainer = document.getElementById("mining-container");
+const balanceContainer = document.getElementById("balance-container");
 
-// Función para mostrar la página de minería al hacer clic en "Start"
-startBtn.addEventListener('click', () => {
-  welcomePage.style.display = 'none';  // Ocultar la página de bienvenida
-  miningPage.style.display = 'block';  // Mostrar la página de minería
+// Mostrar el contador de minería
+startButton.addEventListener("click", function() {
+    startButton.style.display = "none"; // Ocultar el botón de start
+    miningContainer.style.display = "block"; // Mostrar la minería
+    balanceContainer.style.display = "block"; // Mostrar el balance
+    startMining(); // Comienza la minería
 });
 
-// Función para comenzar la minería (contemporizador y acumulación de balance)
+// Función para manejar la minería y la cuenta regresiva
 function startMining() {
-  timerInterval = setInterval(() => {
-    secondsLeft--;
-    const hours = Math.floor(secondsLeft / 3600);
-    const minutes = Math.floor((secondsLeft % 3600) / 60);
-    const seconds = secondsLeft % 60;
+    let timer = miningTime;
 
-    // Mostrar el tiempo restante
-    timerDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+    const interval = setInterval(function() {
+        // Cálculos para horas, minutos y segundos
+        let hours = Math.floor(timer / 3600);
+        let minutes = Math.floor((timer % 3600) / 60);
+        let seconds = Math.floor(timer % 60);
 
-    // Si el contador llega a 0, detener la minería
-    if (secondsLeft <= 0) {
-      clearInterval(timerInterval); // Detener el intervalo del temporizador
-    }
+        // Mostrar el tiempo restante en el formato adecuado
+        timerDisplay.textContent =
+            (hours < 10 ? "0" + hours : hours) + ":" +
+            (minutes < 10 ? "0" + minutes : minutes) + ":" +
+            (seconds < 10 ? "0" + seconds : seconds);
 
-    // Incrementar el balance de minería por segundo
-    miningAmount += 0.002; // Por cada segundo se ganan 0.002 CG
-    updateUI(); // Actualizar la interfaz de usuario
-  }, 1000);
+        // Actualizar el balance por segundo
+        balance += 0.002; // 0.002 CG por segundo
+        balanceDisplay.textContent = balance.toFixed(3) + " CG";
+
+        // Reducir el tiempo del contador
+        if (--timer < 0) {
+            clearInterval(interval); // Detener el temporizador
+            alert("¡Tiempo finalizado! Puedes reclamar tus ganancias.");
+        }
+    }, 1000);
 }
 
-// Función para actualizar la UI con el balance principal y el progreso de la minería
-function updateUI() {
-  balanceDisplay.textContent = `Balance Principal: ${mainBalance.toFixed(3)} CG`;
-  minedAmountDisplay.textContent = `Mining: ${miningAmount.toFixed(3)} CG`;
-  timerDisplay.textContent = formatTime(secondsLeft);  // Formatear y mostrar el tiempo
-}
-
-// Función para formatear el tiempo de la cuenta regresiva (horas:minutos:segundos)
-function formatTime(seconds) {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const secs = seconds % 60;
-  return `${hours}:${minutes}:${secs}`;
-}
-
-// Función para cambiar el botón de "Start Mining" a "Claim" y viceversa
-miningBtn.addEventListener('click', () => {
-  if (!miningStarted) {
-    // Comienza la minería
-    miningStarted = true;
-    startMining(); // Inicia la minería
-    miningBtn.textContent = "Claim"; // Cambiar el texto del botón a "Claim"
-  } else {
-    // Al hacer clic en "Claim":
-    // Sumar el balance minado al balance principal
-    mainBalance += miningAmount;
-
-    // Reiniciar el balance de minería y el contador de tiempo
-    miningAmount = 0;
-    secondsLeft = 14400;  // Reinicia el tiempo a 4 horas
-
-    // Detener la minería y actualizar el botón
-    clearInterval(timerInterval);
-    miningStarted = false;
-    miningBtn.textContent = "Start Mining";  // Cambiar a "Start Mining"
-
-    // Actualizar la UI con el nuevo balance
-    updateUI();
-  }
+// Función para reclamar las ganancias
+claimButton.addEventListener("click", function() {
+    balance += 0.000; // Aquí puedes agregar lo que desees que ocurra cuando "Claim" se presione, como transferir el balance al "wallet"
+    balanceDisplay.textContent = balance.toFixed(3) + " CG"; // Actualizar el balance
+    startButton.style.display = "block"; // Volver a mostrar el botón "Start"
+    miningContainer.style.display = "none"; // Ocultar la minería
 });
