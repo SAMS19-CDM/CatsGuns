@@ -1,42 +1,27 @@
-/* Estilo general */
 body {
-  background-color: #FFD700; /* Fondo dorado cálido */
-  color: #fff;  /* Texto blanco */
-  font-family: 'Arial', sans-serif;
-  text-align: center;
+    background-color: #f0f0f0; /* Fondo suave */
+    color: #333; /* Texto oscuro */
+    font-family: 'Arial', sans-serif;
 }
 
-/* Botones */
-button {
-  background-color: #000;  /* Fondo negro */
-  color: #fff;  /* Texto blanco */
-  padding: 15px 25px;
-  font-size: 1.2em;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 10px;
+.button {
+    background-color: #000; /* Botones negros */
+    color: #fff; /* Texto blanco */
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #333; /* Gris oscuro cuando el ratón pasa por encima */
+.button:hover {
+    background-color: #444; /* Hover de botón */
 }
 
-/* Botón de "Volver atrás" */
-#backBtnMining, #backBtnFriends, #backBtnWallet {
-  background-color: #777; /* Color gris para el botón de "Volver atrás" */
-  color: #fff;
-  font-size: 1em;
-  margin-top: 20px;
-}
-
-#backBtnMining:hover, #backBtnFriends:hover, #backBtnWallet:hover {
-  background-color: #555; /* Gris oscuro al pasar el ratón */
-}
-
-/* Temporizador y balance */
-#timer, #balance, #minedAmount {
-  font-size: 1.5em;
-  margin-top: 20px;
+.container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
 }
