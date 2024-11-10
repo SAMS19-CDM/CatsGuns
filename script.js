@@ -8,13 +8,16 @@ const claimButton = document.getElementById("claim-btn");
 const timerDisplay = document.getElementById("timer");
 const balanceDisplay = document.getElementById("balance");
 const welcomeContainer = document.getElementById("welcome-container");
-const mainContainer = document.getElementById("main-container");
+const miningContainer = document.getElementById("mining-container");
+const mineFreeButton = document.getElementById("mine-free-btn");
+const friendsButton = document.getElementById("friends-btn");
+const walletButton = document.getElementById("wallet-btn");
 
-// Mostrar el contador de minería
+// Función para mostrar la página de minería
 startButton.addEventListener("click", function() {
     welcomeContainer.style.display = "none"; // Ocultar la página de bienvenida
-    mainContainer.style.display = "block"; // Mostrar la página de minería
-    startMining(); // Iniciar la minería
+    miningContainer.style.display = "block"; // Mostrar la página de minería
+    startMining(); // Comienza la minería
 });
 
 // Función para manejar la minería y la cuenta regresiva
@@ -47,8 +50,30 @@ function startMining() {
 
 // Función para reclamar las ganancias
 claimButton.addEventListener("click", function() {
-    balance += 0.000; // Aquí puedes agregar lo que desees que ocurra cuando "Claim" se presione, como transferir el balance al "wallet"
+    balance += 0.000; // Puedes realizar más operaciones al "claim" si lo necesitas
     balanceDisplay.textContent = "Balance: " + balance.toFixed(3) + " CG"; // Actualizar el balance
-    welcomeContainer.style.display = "block"; // Volver a mostrar la página de bienvenida
-    mainContainer.style.display = "none"; // Ocultar la minería
+    resetMining(); // Reiniciar el proceso de minería
+});
+
+// Función para reiniciar la minería
+function resetMining() {
+    balance = 0.000;  // Resetear balance
+    timerDisplay.textContent = "4:00:00"; // Resetear tiempo
+    startMining();  // Iniciar nuevamente la minería
+}
+
+// Funciones para los botones adicionales
+mineFreeButton.addEventListener("click", function() {
+    alert("Estás en la página de minería gratuita.");
+    // Aquí puedes redirigir o agregar más funcionalidades
+});
+
+friendsButton.addEventListener("click", function() {
+    alert("Aquí podrás ver los amigos que has invitado.");
+    // Agregar funciones de amigos o redirigir a otra página
+});
+
+walletButton.addEventListener("click", function() {
+    alert("Coming soon...");
+    // Aquí puedes agregar la funcionalidad de la wallet más tarde
 });
