@@ -7,23 +7,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>¡Bienvenido a CatsGuns!</h1>
-        <!-- Botón de Start -->
+    <!-- Página de bienvenida -->
+    <div id="welcome-container" class="container">
+        <h1>Bienvenido a CatsGuns</h1>
         <button id="start-btn" class="button">Start</button>
+    </div>
 
-        <!-- Sección de la cuenta regresiva y el balance -->
-        <div id="mining-container" style="display: none;">
-            <h2>Comenzando la minería...</h2>
-            <p id="timer">4:00:00</p>
-            <button id="claim-btn" class="button">Claim</button>
-        </div>
-
-        <!-- Información de balance -->
-        <div id="balance-container" style="display: none;">
-            <h2>Balance</h2>
-            <p id="balance">0.000 CG</p>
-        </div>
+    <!-- Página principal (inicialmente oculta) -->
+    <div id="main-container" class="container" style="display: none;">
+        <h2>Comenzando la minería...</h2>
+        <p id="timer">4:00:00</p>
+        <button id="claim-btn" class="button">Claim</button>
+        <p id="balance">Balance: 0.000 CG</p>
     </div>
 
     <script src="script.js"></script>
